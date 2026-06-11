@@ -1,0 +1,696 @@
+/* ==========================================================================
+   GREEN CITY PHARMACY - AD CREATOR STYLING
+   Aesthetic: Premium Dark Slate Studio Mode, Neon Mint Accents, Interactive Canvas Editor
+   ========================================================================== */
+
+:root {
+    --studio-bg: #0f172a;           /* Dark Slate Main */
+    --studio-surface: #1e293b;      /* Slate Card/Sidebar Background */
+    --studio-surface-light: #334155;/* Slate Input/Hover State */
+    --studio-accent: #10b981;       /* Neon Mint Green */
+    --studio-accent-hover: #059669; /* Darker Mint */
+    --studio-accent-glow: rgba(16, 185, 129, 0.25);
+    --studio-text: #f8fafc;         /* Slate White */
+    --studio-text-muted: #94a3b8;   /* Muted Slate Gray */
+    --studio-border: #334155;       /* Card borders */
+    --studio-danger: #ef4444;       /* Danger Red */
+}
+
+/* 1. RESET & BASE STUDIO LAYOUT */
+.studio-body {
+    background-color: var(--studio-bg);
+    color: var(--studio-text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Header bar */
+.studio-header {
+    background-color: var(--studio-surface);
+    border-bottom: 1px solid var(--studio-border);
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    z-index: 10;
+}
+
+.studio-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.studio-logo-icon {
+    width: 38px;
+    height: 38px;
+    background-color: var(--studio-accent);
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px 16px;
+    font-size: 1.25rem;
+    box-shadow: 0 4px 12px var(--studio-accent-glow);
+}
+
+.studio-logo-text h1 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--studio-text);
+    margin: 0;
+    line-height: 1;
+}
+
+.studio-logo-text span {
+    font-size: 0.7rem;
+    color: var(--studio-accent);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.studio-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Buttons */
+.studio-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    outline: none;
+}
+
+.studio-btn-primary {
+    background-color: var(--studio-accent);
+    color: var(--studio-bg);
+}
+
+.studio-btn-primary:hover {
+    background-color: var(--studio-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 0 16px var(--studio-accent-glow);
+}
+
+.studio-btn-secondary {
+    background-color: var(--studio-surface-light);
+    color: var(--studio-text);
+    border: 1px solid var(--studio-border);
+}
+
+.studio-btn-secondary:hover {
+    background-color: #475569;
+    color: #fff;
+}
+
+.studio-btn-outline {
+    background-color: transparent;
+    border: 1.5px solid var(--studio-accent);
+    color: var(--studio-accent);
+}
+
+.studio-btn-outline:hover {
+    background-color: var(--studio-accent);
+    color: var(--studio-bg);
+}
+
+/* main workspace split layout */
+.studio-main-container {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 70px);
+    overflow: hidden;
+}
+
+/* sidebars */
+.studio-sidebar {
+    width: 320px;
+    background-color: var(--studio-surface);
+    border-right: 1px solid var(--studio-border);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.studio-sidebar-right {
+    width: 360px;
+    border-right: none;
+    border-left: 1px solid var(--studio-border);
+}
+
+.studio-sidebar-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--studio-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.studio-sidebar-header h2 {
+    font-size: 1rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--studio-text);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.studio-sidebar-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+}
+
+/* center workspace */
+.studio-workspace {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #020617; /* Even darker black */
+    overflow: hidden;
+    position: relative;
+}
+
+/* 2. MEDICINE LIBRARY WIDGETS */
+.library-search {
+    position: relative;
+}
+
+.library-search i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--studio-text-muted);
+    font-size: 0.85rem;
+}
+
+.library-search-input {
+    width: 100%;
+    padding: 10px 12px 10px 34px;
+    background-color: var(--studio-surface-light);
+    border: 1px solid var(--studio-border);
+    border-radius: 6px;
+    color: var(--studio-text);
+    font-size: 0.85rem;
+}
+
+.library-search-input:focus {
+    border-color: var(--studio-accent);
+}
+
+.library-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    overflow-y: auto;
+    max-height: calc(100vh - 220px);
+    padding-bottom: 20px;
+}
+
+.library-item {
+    background-color: var(--studio-surface-light);
+    border: 1px solid var(--studio-border);
+    border-radius: 8px;
+    padding: 12px;
+    cursor: grab;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    user-select: none;
+}
+
+.library-item:hover {
+    border-color: var(--studio-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.library-item:active {
+    cursor: grabbing;
+}
+
+.library-item-icon-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 8px;
+    position: relative;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Gradients for different packages */
+.lib-grad-otc { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+.lib-grad-vitamins { background: linear-gradient(135deg, #a855f7, #6b21a8); }
+.lib-grad-antibiotic { background: linear-gradient(135deg, #10b981, #047857); }
+.lib-grad-cardio { background: linear-gradient(135deg, #f43f5e, #be123c); }
+.lib-grad-diabetes { background: linear-gradient(135deg, #f59e0b, #b45309); }
+.lib-grad-allergy { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+
+.library-item-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--studio-text);
+    margin: 0 0 2px 0;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.library-item-dosage {
+    font-size: 0.65rem;
+    color: var(--studio-text-muted);
+}
+
+/* 3. VIEWPORT PREVIEW AREA */
+.viewport-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+}
+
+.video-frame-wrapper {
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    border: 4px solid var(--studio-surface);
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+}
+
+/* Hidden source video element */
+#editor-video {
+    display: none;
+}
+
+/* Canvas viewport */
+#editor-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: default;
+}
+
+/* Empty State / Upload Dropzone inside Viewport */
+.viewport-upload-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    padding: 40px;
+    text-align: center;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.viewport-upload-overlay.dragover {
+    background-color: rgba(16, 185, 129, 0.15);
+    border: 2px dashed var(--studio-accent);
+}
+
+.viewport-upload-icon {
+    font-size: 3rem;
+    color: var(--studio-accent);
+    margin-bottom: 16px;
+    animation: bounce 2s infinite;
+}
+
+.viewport-upload-overlay h3 {
+    margin: 0 0 8px 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.25rem;
+}
+
+.viewport-upload-overlay p {
+    color: var(--studio-text-muted);
+    font-size: 0.9rem;
+    margin: 0 0 20px 0;
+    max-width: 400px;
+}
+
+.demo-suggestion-box {
+    margin-top: 24px;
+    border-top: 1px dashed var(--studio-border);
+    padding-top: 20px;
+    width: 100%;
+    max-width: 320px;
+}
+
+/* 4. CANVAS OVERLAY UI (DRAGGING NODES) */
+/* Bounding boxes overlaying on HTML wrapper if done via DOM, but we will handle handles directly on Canvas for seamless 60fps tracking. Fallback visual overlay indicator if needed */
+.object-handles-overlay {
+    position: absolute;
+    pointer-events: none;
+    border: 2px dashed var(--studio-accent);
+    display: none;
+    z-index: 4;
+}
+
+/* 5. EDITOR TIMELINE & CONTROLS */
+.timeline-container {
+    background-color: var(--studio-surface);
+    border-top: 1px solid var(--studio-border);
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.timeline-controls-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.timeline-playback-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--studio-surface-light);
+    color: var(--studio-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.timeline-playback-btn:hover {
+    background-color: var(--studio-accent);
+    color: var(--studio-bg);
+}
+
+.timeline-time-display {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--studio-text-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.timeline-scrubber-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+}
+
+.timeline-scrubber {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--studio-border);
+    outline: none;
+    cursor: pointer;
+}
+
+.timeline-scrubber::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--studio-accent);
+    cursor: pointer;
+    box-shadow: 0 0 8px var(--studio-accent-glow);
+}
+
+.timeline-keyframe-markers {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.keyframe-indicator {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: var(--studio-accent);
+    border-radius: 50%;
+    top: -2px;
+    box-shadow: 0 0 6px var(--studio-accent);
+}
+
+/* 6. AD CUSTOMIZER CONTROLS (RIGHT PANEL) */
+.customizer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-bottom: 1px solid var(--studio-border);
+    padding-bottom: 16px;
+}
+
+.customizer-section:last-child {
+    border-bottom: none;
+}
+
+.customizer-section-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--studio-accent);
+    font-weight: 700;
+    margin: 0 0 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.form-group-studio {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group-studio label {
+    font-size: 0.75rem;
+    color: var(--studio-text-muted);
+    font-weight: 500;
+}
+
+.studio-input {
+    width: 100%;
+    background-color: var(--studio-surface-light);
+    border: 1px solid var(--studio-border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: var(--studio-text);
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.studio-input:focus {
+    border-color: var(--studio-accent);
+}
+
+.studio-select {
+    width: 100%;
+    background-color: var(--studio-surface-light);
+    border: 1px solid var(--studio-border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: var(--studio-text);
+    font-size: 0.85rem;
+    outline: none;
+    cursor: pointer;
+}
+
+.checkbox-studio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: var(--studio-text);
+    user-select: none;
+}
+
+.checkbox-studio input {
+    accent-color: var(--studio-accent);
+}
+
+/* Controls list overlay panels */
+.overlay-objects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.overlay-object-row {
+    background-color: var(--studio-surface-light);
+    border: 1px solid var(--studio-border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+}
+
+.overlay-object-row-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.overlay-object-icon {
+    color: var(--studio-accent);
+}
+
+.overlay-object-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.overlay-object-btn {
+    background: transparent;
+    border: none;
+    color: var(--studio-text-muted);
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: color 0.2s ease;
+}
+
+.overlay-object-btn:hover {
+    color: var(--studio-text);
+}
+
+.overlay-object-btn.delete:hover {
+    color: var(--studio-danger);
+}
+
+/* Export Loader modal overlay */
+.export-loader-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.95);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.export-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid var(--studio-border);
+    border-top: 4px solid var(--studio-accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+.export-progress-bar {
+    width: 250px;
+    height: 6px;
+    background-color: var(--studio-border);
+    border-radius: 3px;
+    margin: 15px auto;
+    overflow: hidden;
+}
+
+.export-progress-fill {
+    width: 0%;
+    height: 100%;
+    background-color: var(--studio-accent);
+    transition: width 0.1s linear;
+}
+
+/* Tooltips */
+.hint-text {
+    font-size: 0.7rem;
+    color: var(--studio-text-muted);
+    line-height: 1.4;
+}
+
+/* Animations */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* responsive details */
+@media(max-width: 1024px) {
+    .studio-main-container {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+    .studio-sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--studio-border);
+    }
+    .studio-sidebar-right {
+        border-left: none;
+        border-top: 1px solid var(--studio-border);
+    }
+    .studio-workspace {
+        height: 500px;
+    }
+}

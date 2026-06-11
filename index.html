@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green City Pharmacy | Managed by Registered Pharmacist Ameen Ahamad</title>
+    <meta name="description" content="Green City Pharmacy in India, owned and operated by Registered Pharmacist Ameen Ahamad. Upload prescriptions, search genuine medicines, and choose home delivery or self-pickup.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- SIMULATED SMS OTP NOTIFICATION GATEWAY -->
+    <div id="mock-sms-notification" class="sms-notification-banner" style="display: none;">
+        <div class="sms-icon"><i class="fa-solid fa-comment-sms"></i></div>
+        <div class="sms-content">
+            <div class="sms-header">
+                <strong>SECURE-GATEWAY (SMS)</strong>
+                <span class="sms-time">Just now</span>
+            </div>
+            <div class="sms-body">
+                💬 Green City Pharmacy Access Code: <strong id="sms-otp-display" style="color: var(--primary-dark); font-size: 1.05rem;">000000</strong>. Enter this OTP to log in.
+            </div>
+        </div>
+        <button id="close-sms-btn" class="sms-close" style="background: transparent; color: var(--text-muted); cursor: pointer; border: none; font-size: 1rem;"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- TOP CONTACT BAR -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="top-info">
+                <span><i class="fa-solid fa-phone"></i> <span id="bind-top-phone">+91 98765 43210</span></span>
+                <span class="separator">|</span>
+                <span><i class="fa-solid fa-location-dot"></i> <span id="bind-top-address">Near Central Plaza, Green City, India</span></span>
+            </div>
+            <div class="top-badge">
+                <span class="badge-pill"><i class="fa-solid fa-user-shield"></i> Licensed Proprietorship Firm</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="main-header">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-leaf"></i></div>
+                <div class="logo-text">
+                    <span class="logo-title">GREEN CITY</span>
+                    <span class="logo-sub">PHARMACY</span>
+                </div>
+            </a>
+
+            <!-- Live Search Bar -->
+            <div class="search-wrapper">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="global-search" placeholder="Search medicines, vitamins, health essentials...">
+                <button class="clear-search-btn" id="clear-search" style="display: none;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Nav Links -->
+            <nav class="nav-links">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#prescription" class="nav-link">Upload Prescription</a>
+                <a href="#shop" class="nav-link">Catalog</a>
+                <a href="#about" class="nav-link">About Shop</a>
+            </nav>
+
+            <!-- Action buttons -->
+            <div class="nav-actions">
+                <button class="cart-trigger" id="cart-btn" aria-label="Open Cart">
+                    <i class="fa-solid fa-shopping-basket"></i>
+                    <span class="cart-count" id="cart-counter">0</span>
+                </button>
+                <a href="#prescription" class="btn btn-outline nav-upload-btn">
+                    <i class="fa-solid fa-file-medical"></i> Quick Upload
+                </a>
+                <button class="btn btn-secondary nav-admin-btn" id="admin-portal-btn">
+                    <i class="fa-solid fa-user-gear"></i> Portal
+                </button>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- MOBILE NAVIGATION MENU -->
+    <div class="mobile-nav" id="mobile-menu">
+        <a href="#home" class="mobile-link">Home</a>
+        <a href="#prescription" class="mobile-link">Upload Prescription</a>
+        <a href="#shop" class="mobile-link">Catalog</a>
+        <a href="#about" class="mobile-link">About Shop</a>
+        <a href="#prescription" class="btn btn-primary mobile-upload-btn" style="margin-bottom: 8px;">
+            <i class="fa-solid fa-file-medical"></i> Upload Prescription
+        </a>
+        <button class="btn btn-secondary mobile-admin-btn" id="mobile-admin-portal-btn" style="width: 100%;">
+            <i class="fa-solid fa-user-gear"></i> Pharmacist Portal
+        </button>
+    </div>
+
+    <!-- MAIN APP CONTENT -->
+    <main>
+
+        <!-- HERO SECTION -->
+        <section id="home" class="hero">
+            <div class="container hero-container">
+                <div class="hero-text-content">
+                    <div class="pharmacist-pill">
+                        <span class="pulse-dot"></span>
+                        <i class="fa-solid fa-user-doctor"></i> Managed by <span id="bind-hero-pharmacist">Ameen Ahamad</span> (Registered Pharmacist)
+                    </div>
+                    <h1>Your Trusted Partner for <span>Healthy Living</span></h1>
+                    <p class="hero-description">
+                        Green City Pharmacy bridges the gap between digital convenience and professional, local community care. Order online for swift home delivery, schedule a self-pickup, or consult our licensed pharmacists directly.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#prescription" class="btn btn-primary btn-lg">
+                            <i class="fa-solid fa-file-prescription"></i> Upload Prescription
+                        </a>
+                        <a href="#shop" class="btn btn-secondary btn-lg">
+                            <i class="fa-solid fa-prescription-bottle-medical"></i> Browse Medicines
+                        </a>
+                    </div>
+                    
+                    <!-- Trust Highlights -->
+                    <div class="trust-grid">
+                        <div class="trust-item">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <div>
+                                <h4>100% Genuine</h4>
+                                <p>Sourced directly from verified distributors</p>
+                            </div>
+                        </div>
+                        <div class="trust-item">
+                            <i class="fa-solid fa-truck-fast"></i>
+                            <div>
+                                <h4>Local Delivery</h4>
+                                <p>Delivered safely to your doorstep</p>
+                            </div>
+                        </div>
+                        <div class="trust-item">
+                            <i class="fa-solid fa-store"></i>
+                            <div>
+                                <h4>Self-Pickup</h4>
+                                <p>Ready at shop in 15 minutes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Graphic Frame -->
+                <div class="hero-visual">
+                    <div class="blob-bg"></div>
+                    <img src="assets/hero_wellness.png" alt="Green City Pharmacy Professional Pharmacist Care" class="hero-img" id="hero-image">
+                    
+                    <!-- Floating Overlays for modern look -->
+                    <div class="floating-card badge-card">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <div>
+                            <h5>Regd. No. <span id="bind-hero-reg-no">49301</span></h5>
+                            <p>PCI Registered Pharmacist</p>
+                        </div>
+                    </div>
+                    <div class="floating-card support-card">
+                        <i class="fa-solid fa-headset"></i>
+                        <div>
+                            <h5>Expert Advice</h5>
+                            <p>Pharmacist-on-duty support</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRESCRIPTION UPLOAD ZONE -->
+        <section id="prescription" class="prescription-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="sub-title">FASTEST ORDERING WAY</span>
+                    <h2>Upload Your Prescription</h2>
+                    <p class="section-desc">
+                        Our Registered Pharmacist, Ameen Ahamad, will personally verify and compile your order. We will reach out to you via WhatsApp/Call to confirm delivery times and prices.
+                    </p>
+                </div>
+
+                <div class="prescription-grid">
+                    <!-- Upload Dropzone Card -->
+                    <div class="upload-card">
+                        <div class="drop-zone" id="prescription-dropzone">
+                            <input type="file" id="prescription-input" accept="image/*, application/pdf" style="display: none;">
+                            <div class="drop-zone-content">
+                                <div class="upload-icon-circle">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                </div>
+                                <h3>Drag & Drop Prescription</h3>
+                                <p>Supports JPG, PNG, or PDF formats</p>
+                                <span class="btn btn-secondary">Select File</span>
+                            </div>
+                            
+                            <!-- Upload Success State (Hidden by default) -->
+                            <div class="upload-success-state" id="upload-success" style="display: none;">
+                                <div class="success-icon-circle">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </div>
+                                <div id="prescription-preview-container" style="display: none; margin-bottom: 15px; border-radius: var(--border-radius-sm); overflow: hidden; border: 1px solid var(--border-color); max-width: 160px; margin: 10px auto; box-shadow: var(--shadow-sm);">
+                                    <img id="prescription-preview-img" src="" alt="Prescription Thumbnail" style="width: 100%; height: auto; display: block; object-fit: cover;">
+                                </div>
+                                <h3 id="uploaded-filename">Prescription_Upload.pdf</h3>
+                                <p class="success-meta">File successfully loaded (2.4 MB)</p>
+                                <button class="btn btn-outline" id="remove-file-btn">Remove & Select Another</button>
+                            </div>
+                        </div>
+
+                        <!-- Prescription Form Details -->
+                        <form id="prescription-details-form" class="prescription-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="p-name">Your Full Name <span class="required">*</span></label>
+                                    <input type="text" id="p-name" placeholder="Ameen Ahamad" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="p-phone">Mobile Number <span class="required">*</span></label>
+                                    <input type="tel" id="p-phone" placeholder="9876543210" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="p-notes">Special Instructions or Dosage Notes (Optional)</label>
+                                <textarea id="p-notes" rows="3" placeholder="e.g., Please send 2 strips of Paracetamol and 1 bottle of antiseptic lotion..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit-prescription-btn">
+                                <i class="fa-solid fa-paper-plane"></i> Submit to Pharmacist for Review
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Regulation & Trust Column -->
+                    <div class="regulation-info">
+                        <div class="info-card">
+                            <i class="fa-solid fa-circle-info card-icon"></i>
+                            <h3>Pharmacy Regulations</h3>
+                            <p>According to India's Drugs and Cosmetics Act, scheduling drugs (like antibiotics or strong painkillers) require a valid prescription from a registered medical practitioner before dispensing.</p>
+                        </div>
+                        
+                        <div class="step-guide">
+                            <h3>How it Works:</h3>
+                            <div class="step-item">
+                                <div class="step-num">1</div>
+                                <div class="step-text">
+                                    <h4>Upload Prescription</h4>
+                                    <p>Snap a photo of your prescription and upload it securely.</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-num">2</div>
+                                <div class="step-text">
+                                    <h4>Pharmacist Review</h4>
+                                    <p>Registered Pharmacist Ameen Ahamad reviews the items, verifies legitimacy, and calculates the total.</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-num">3</div>
+                                <div class="step-text">
+                                    <h4>Order Confirmation</h4>
+                                    <p>We contact you via call/WhatsApp to confirm pricing and delivery details.</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-num">4</div>
+                                <div class="step-text">
+                                    <h4>Doorstep Delivery / Pickup</h4>
+                                    <p>Get it delivered to your home or pick it up at the shop in 15 minutes.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCT CATALOG SECTION -->
+        <section id="shop" class="catalog-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="sub-title">GENUINE HEALTH PRODUCTS</span>
+                    <h2>Browse Our Wellness Catalog</h2>
+                    <p class="section-desc">Search and select items to add to your order. We keep a massive stock of over-the-counter medicines, multi-vitamins, and daily healthcare supplies.</p>
+                </div>
+
+                <!-- Catalog Control Panel -->
+                <div class="catalog-controls">
+                    <!-- Categories -->
+                    <div class="category-tabs" id="catalog-tabs">
+                        <button class="tab-btn active" data-category="all">All Products</button>
+                        <button class="tab-btn" data-category="otc">OTC Medicines</button>
+                        <button class="tab-btn" data-category="vitamins">Vitamins & Supplements</button>
+                        <button class="tab-btn" data-category="essentials">Health Essentials</button>
+                        <button class="tab-btn" data-category="personal">Personal Care</button>
+                    </div>
+
+                    <!-- Layout & Sort Controls (optional visual details) -->
+                    <div class="catalog-stats">
+                        Showing <span id="displayed-count">12</span> high-quality wellness products
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="product-grid" id="product-grid-container">
+                    <!-- Products will be generated dynamically by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- THE PHYSICAL SHOP & OWNER DETAIL -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="about-grid">
+                    <!-- Column 1: Biography / Trust -->
+                    <div class="about-brand">
+                        <span class="sub-title">LOCAL COMMUNITY TRUST</span>
+                        <h2>About Green City Pharmacy</h2>
+                        <p class="lead-text">
+                            A registered proprietorship firm owned and operated by <strong>Ameen Ahamad (Registered Pharmacist)</strong>. We merge professional healthcare licensing with personal community care.
+                        </p>
+                        <p>
+                            Green City Pharmacy was founded with the mission of delivering authentic pharmaceutical services. Unlike impersonal corporate drug networks, we believe in face-to-face accountability. When you order from Green City Pharmacy, you are directly communicating with the clinical pharmacist who oversees your dosage, checks drug interactions, and ensures your family's safety.
+                        </p>
+
+                        <!-- Owner Card -->
+                        <div class="pharmacist-card">
+                            <div class="pharmacist-avatar">
+                                <i class="fa-solid fa-user-md"></i>
+                            </div>
+                            <div class="pharmacist-details">
+                                <h3><span id="bind-about-proprietor">Ameen Ahamad</span></h3>
+                                <span class="badge-role">Owner & Chief Registered Pharmacist</span>
+                                <p class="lic-info">PCI Registration No: <strong><span id="bind-about-reg-no">49301</span></strong></p>
+                                <p class="lic-info">Drug License No: <strong><span id="bind-about-dl-no">DL-29302/20B/21B</span></strong></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Offline Store Details -->
+                    <div class="shop-details-card">
+                        <h3><i class="fa-solid fa-store"></i> Physical Store Details</h3>
+                        <p class="card-intro">Visit our retail outlet to purchase medicines directly or collect your pre-packed online orders.</p>
+                        
+                        <div class="shop-info-list">
+                            <div class="info-row">
+                                <div class="info-icon"><i class="fa-solid fa-clock"></i></div>
+                                <div class="info-text">
+                                    <h4>Operating Hours</h4>
+                                    <p id="bind-about-hours">Monday - Sunday: 08:00 AM - 10:00 PM (IST)</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                                <div class="info-text">
+                                    <h4>Shop Address</h4>
+                                    <p id="bind-about-address">Shop No. 12, Ground Floor, Central Plaza Mall, Near Metro Station, Green City, India</p>
+                                </div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                                <div class="info-text">
+                                    <h4>Drug License DL Number</h4>
+                                    <p id="bind-about-dl-text">DL-29302/20B/21B</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mock Map / Visual representation of store locator -->
+                        <a href="https://maps.google.com" target="_blank" id="bind-about-map-link" style="display: block; border-radius: var(--border-radius-sm); overflow: hidden;">
+                            <div class="shop-map-visual">
+                                <div class="map-overlay">
+                                    <div class="map-marker"><i class="fa-solid fa-location-crosshairs"></i></div>
+                                    <span>Green City Pharmacy (Store View) - Click to Open Map</span>
+                                </div>
+                                <img src="assets/storefront.png" alt="Green City Pharmacy Offline Store Locator" id="storefront-image">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section id="faq" class="faq-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="sub-title">COMMON QUESTIONS</span>
+                    <h2>Frequently Asked Questions</h2>
+                    <p class="section-desc">Have questions about medicines, payment details, or delivery logistics? Read our common answers below.</p>
+                </div>
+                
+                <div class="faq-accordion">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Is a doctor's prescription (Rx) mandatory for all orders?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>No, prescription-only drugs (like antibiotics or strong pain relievers) require a valid doctor's prescription under India's Drugs and Cosmetics Act. General wellness items, multivitamins, cosmetic items, and over-the-counter (OTC) medicines do not require any prescription.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>How does the digital prescription verification work?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Once you drop or choose a prescription file and fill out the patient contact details, our chief Registered Pharmacist Ameen Ahamad (PCI Reg No: 49301) personally checks the prescription details. We will then contact you via WhatsApp/Call to review prices, advise on dosages, and confirm the dispatch.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>What are the secure payment methods you accept?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We accept Cash on Delivery (COD) or Pay on Pickup, instant UPI payments (GPay, PhonePe, Paytm, BHIM), and direct Bank Account transfers (NEFT/IMPS). You can view store payment coordinates and scan UPI links directly in the shopping cart sidebar during checkout.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>How fast can I get my home delivery or collect my pickup?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>For Self-Pickup orders, the pharmacist will have your items pre-packaged and ready at our Central Plaza outlet in 15 minutes. For Home Delivery, our local riders dispatch items to your door within 2 to 4 hours inside the Green City neighborhood (₹30 flat delivery fee).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo footer-logo">
+                    <div class="logo-icon"><i class="fa-solid fa-leaf"></i></div>
+                    <div class="logo-text">
+                        <span class="logo-title">GREEN CITY</span>
+                        <span class="logo-sub">PHARMACY</span>
+                    </div>
+                </a>
+                <p>Connecting licensed pharmaceutical professionalism with convenient local deliveries. Your health is our highest priority.</p>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links-group">
+                <h3>Quick Nav</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#prescription">Upload Prescription</a></li>
+                    <li><a href="#shop">Medicine Catalog</a></li>
+                    <li><a href="#about">About Shop & Pharmacist</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-group">
+                <h3>Legal & License</h3>
+                <ul>
+                    <li><p class="footer-p"><strong>Proprietor:</strong> <span id="bind-footer-proprietor">Ameen Ahamad</span></p></li>
+                    <li><p class="footer-p"><strong>Drug License:</strong> <span id="bind-footer-dl-no">DL-29302/20B/21B</span></p></li>
+                    <li><p class="footer-p"><strong>Reg. Pharmacist:</strong> <span id="bind-footer-pharmacist">Ameen Ahamad</span></p></li>
+                    <li><p class="footer-p"><strong>PCI Reg No:</strong> <span id="bind-footer-reg-no">49301</span></p></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-group">
+                <h3>Store Info</h3>
+                <p class="footer-p"><i class="fa-solid fa-phone"></i> <span id="bind-footer-phone">+91 98765 43210</span></p>
+                <p class="footer-p"><i class="fa-solid fa-envelope"></i> <span id="bind-footer-email">contact@greencitypharmacy.com</span></p>
+                <p class="footer-p"><i class="fa-solid fa-clock"></i> <span id="bind-footer-hours">Open everyday: 8 AM - 10 PM</span></p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-content">
+                <p>&copy; 2026 Green City Pharmacy. All Rights Reserved. Proprietor: Ameen Ahamad.</p>
+                <p class="medical-disclaimer"><strong>Disclaimer:</strong> Information provided on this website is for general educational and reference purposes only. Always consult your medical doctor or medical practitioner regarding health conditions or medicine prescriptions.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SLIDE-OUT CART PANEL -->
+    <div class="cart-sidebar-overlay" id="cart-overlay"></div>
+    <aside class="cart-sidebar" id="cart-panel">
+        <div class="cart-sidebar-header">
+            <h3><i class="fa-solid fa-shopping-basket"></i> Your Cart</h3>
+            <button class="cart-close-btn" id="close-cart-btn" aria-label="Close Cart">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Cart Content -->
+        <div class="cart-sidebar-body">
+            <!-- Empty State -->
+            <div class="cart-empty-state" id="cart-empty">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <p>Your cart is empty.</p>
+                <p class="empty-sub">Add OTC medicines or healthcare products from our wellness catalog to start your order!</p>
+                <a href="#shop" class="btn btn-secondary" id="empty-shop-now">Browse Catalog</a>
+            </div>
+
+            <!-- Cart Items List -->
+            <div class="cart-items-list" id="cart-items-container" style="display: none;">
+                <!-- Dynamically generated in JS -->
+            </div>
+        </div>
+
+        <!-- Cart Footer / Checkout Selection (Sticky at bottom) -->
+        <div class="cart-sidebar-footer" id="cart-summary-section" style="display: none;">
+            <div class="summary-row">
+                <span>Subtotal:</span>
+                <span id="cart-subtotal">₹0.00</span>
+            </div>
+            
+            <!-- Delivery Type Selector -->
+            <div class="delivery-options-group">
+                <label>Order Type:</label>
+                <div class="delivery-toggle">
+                    <button class="delivery-btn active" id="delivery-option-pickup" data-type="pickup">
+                        <i class="fa-solid fa-store"></i> Self-Pickup (Free)
+                    </button>
+                    <button class="delivery-btn" id="delivery-option-home" data-type="delivery">
+                        <i class="fa-solid fa-truck"></i> Home Delivery (₹30)
+                    </button>
+                </div>
+            </div>
+
+            <div class="summary-row total-row">
+                <span>Total:</span>
+                <span id="cart-total">₹0.00</span>
+            </div>
+
+            <!-- Payment Method Selector -->
+            <div class="payment-method-group">
+                <label class="checkout-label">Select Payment Method:</label>
+                <div class="payment-toggle-grid">
+                    <button type="button" class="payment-btn active" id="pay-option-cod" data-pay="cod">
+                        <i class="fa-solid fa-hand-holding-dollar"></i>
+                        <span>COD / Cash</span>
+                    </button>
+                    <button type="button" class="payment-btn" id="pay-option-upi" data-pay="upi">
+                        <i class="fa-solid fa-qrcode"></i>
+                        <span>UPI Pay</span>
+                    </button>
+                    <button type="button" class="payment-btn" id="pay-option-bank" data-pay="bank">
+                        <i class="fa-solid fa-building-columns"></i>
+                        <span>Bank Info</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dynamic Payment Instructions Panel -->
+            <div id="checkout-payment-instructions" class="payment-instructions-panel" style="display: none;">
+                <!-- Injected via JS -->
+            </div>
+
+            <!-- Checkout Details Form -->
+            <div class="checkout-form-mini">
+                <div class="form-group">
+                    <label for="cart-cust-name">Your Name</label>
+                    <input type="text" id="cart-cust-name" placeholder="Ameen Ahamad">
+                </div>
+                <div class="form-group">
+                    <label for="cart-cust-phone">WhatsApp/Phone Number <span class="required">*</span></label>
+                    <input type="tel" id="cart-cust-phone" placeholder="9876543210" required>
+                </div>
+                <div class="form-group" id="delivery-address-group" style="display: none;">
+                    <label for="cart-cust-address">Delivery Address <span class="required">*</span></label>
+                    <textarea id="cart-cust-address" rows="2" placeholder="Enter complete home address for delivery..."></textarea>
+                </div>
+            </div>
+
+            <button class="btn btn-primary btn-block btn-lg" id="checkout-submit-btn">
+                <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
+            </button>
+            <p class="cart-disclaimer"><i class="fa-solid fa-circle-check"></i> Orders are reviewed & packaged by Pharmacist Ameen Ahamad before checkout.</p>
+        </div>
+    </aside>
+
+    <!-- PRODUCT DETAILS MODAL -->
+    <div class="modal-overlay" id="product-modal-overlay" style="display: none;">
+        <div class="product-modal" id="product-details-modal">
+            <button class="modal-close-btn" id="close-product-modal" aria-label="Close Modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="product-modal-header" id="modal-product-header">
+                <!-- Injected via JS -->
+            </div>
+            <div class="product-modal-body">
+                <div class="modal-tab-nav">
+                    <button class="modal-tab-btn active" data-tab="overview">Overview</button>
+                    <button class="modal-tab-btn" data-tab="ingredients">Active Ingredients</button>
+                    <button class="modal-tab-btn" data-tab="directions">How to Use</button>
+                    <button class="modal-tab-btn" data-tab="side-effects">Side Effects</button>
+                </div>
+                <div class="modal-tab-content active" id="tab-overview">
+                    <p id="modal-desc"></p>
+                    <div class="modal-benefits-list">
+                        <h4>Key Benefits:</h4>
+                        <ul id="modal-benefits"></ul>
+                    </div>
+                </div>
+                <div class="modal-tab-content" id="tab-ingredients">
+                    <p id="modal-ingredients"></p>
+                </div>
+                <div class="modal-tab-content" id="tab-directions">
+                    <p id="modal-directions"></p>
+                </div>
+                <div class="modal-tab-content" id="tab-side-effects">
+                    <p id="modal-side-effects"></p>
+                </div>
+            </div>
+            <div class="product-modal-footer">
+                <div class="modal-price-wrap">
+                    <span id="modal-price">₹0.00</span>
+                    <span id="modal-size"></span>
+                </div>
+                <button class="btn btn-primary" id="modal-add-to-cart-btn">
+                    <i class="fa-solid fa-plus"></i> Add to Order
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PHARMACIST ADMIN PORTAL MODAL -->
+    <div class="modal-overlay" id="admin-portal-modal" style="display: none;">
+        <div class="admin-modal">
+            <!-- Global close button accessible during login or dashboard states -->
+            <button class="modal-close-btn" id="close-admin-modal" aria-label="Close Portal" style="position: absolute; top: 20px; right: 20px; z-index: 50;">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- 1. LOGIN GATE SCREEN -->
+            <div id="admin-login-view" class="admin-auth-panel">
+                <div class="auth-card-body">
+                    <div class="auth-icon-circle">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h2>Pharmacist Sign-in</h2>
+                    <p class="auth-subtitle">Credentials and OTP authentication required to access database.</p>
+                    
+                    <!-- STAGE A: Password Verification -->
+                    <form id="auth-password-form" class="auth-form">
+                        <div class="form-group">
+                            <label for="admin-pass-input">Enter Access Password:</label>
+                            <div class="password-input-wrapper" style="position: relative;">
+                                <input type="password" id="admin-pass-input" placeholder="Default: admin123" required style="width: 100%; padding-right: 48px;">
+                                <button type="button" id="toggle-login-pass" class="pass-toggle-btn" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: transparent; color: var(--text-muted); cursor: pointer; border: none;">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 15px;">
+                            <i class="fa-solid fa-arrow-right"></i> Next
+                        </button>
+                    </form>
+
+                    <!-- STAGE B: OTP verification -->
+                    <form id="auth-otp-form" class="auth-form" style="display: none;">
+                        <label class="checkout-label" style="text-align: center; margin-bottom: 15px; font-weight:700;">Enter 6-Digit Verification Code:</label>
+                        <div class="otp-digits-grid">
+                            <input type="text" class="otp-digit-input" maxlength="1" data-index="0" required pattern="[0-9]" inputmode="numeric">
+                            <input type="text" class="otp-digit-input" maxlength="1" data-index="1" required pattern="[0-9]" inputmode="numeric">
+                            <input type="text" class="otp-digit-input" maxlength="1" data-index="2" required pattern="[0-9]" inputmode="numeric">
+                            <input type="text" class="otp-digit-input" maxlength="1" data-index="3" required pattern="[0-9]" inputmode="numeric">
+                            <input type="text" class="otp-digit-input" maxlength="1" data-index="4" required pattern="[0-9]" inputmode="numeric">
+                            <input type="text" class="otp-digit-input" maxlength="1" data-index="5" required pattern="[0-9]" inputmode="numeric">
+                        </div>
+                        <div class="otp-timer-text" style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 20px;">
+                            Didn't get the code? <button type="button" id="resend-otp-btn" class="btn-copy-data" style="padding: 2px 8px; font-size: 0.75rem; vertical-align: middle;">Resend OTP</button>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 20px;">
+                            <i class="fa-solid fa-circle-check"></i> Verify & Authenticate
+                        </button>
+                        <button type="button" id="back-to-password-btn" style="background: transparent; color: var(--primary-dark); font-weight: 700; font-size: 0.8rem; display: block; margin: 15px auto 0 auto; cursor: pointer; border: none;">
+                            <i class="fa-solid fa-arrow-left-long"></i> Back to Password
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 2. DASHBOARD ACTIVE SCREEN (Hidden initially) -->
+            <div id="admin-dashboard-view" style="display: none; flex-direction: column; height: 100%;">
+                <div class="admin-modal-header">
+                    <h3><i class="fa-solid fa-user-shield"></i> Pharmacist Management Portal</h3>
+                    <div style="display: flex; align-items: center; gap: 12px; margin-right: 48px;">
+                        <a href="ad-creator.html" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.75rem; background-color: var(--primary);"><i class="fa-solid fa-film"></i> Ad Studio</a>
+                        <button class="btn btn-outline" id="admin-logout-btn" style="padding: 8px 16px; font-size: 0.75rem; border-color: var(--status-danger); color: var(--status-danger); background: transparent;">
+                            <i class="fa-solid fa-right-from-bracket"></i> Log Out
+                        </button>
+                    </div>
+                </div>
+                <div class="admin-modal-tabs">
+                    <button class="admin-tab-btn active" id="tab-btn-catalog" data-admin-tab="catalog">Manage Catalog</button>
+                    <button class="admin-tab-btn" id="tab-btn-orders" data-admin-tab="orders">
+                        Incoming Orders <span id="orders-badge-count" class="orders-badge" style="display: none;">0</span>
+                    </button>
+                    <button class="admin-tab-btn" id="tab-btn-settings" data-admin-tab="settings">Store Settings & Security</button>
+                    <button class="admin-tab-btn" id="tab-btn-adcreator" onclick="window.location.href='ad-creator.html'" style="color: var(--primary-dark); font-weight: 700;"><i class="fa-solid fa-wand-magic-sparkles"></i> Ad Creator</button>
+                </div>
+                <div class="admin-modal-body">
+                    <!-- CATALOG MANAGEMENT PANEL -->
+                    <div class="admin-tab-panel active" id="panel-catalog">
+                        <div class="panel-header-actions">
+                            <div class="search-wrapper admin-search-wrap">
+                                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                                <input type="text" id="admin-product-search" placeholder="Search catalog products...">
+                            </div>
+                            <button class="btn btn-primary" id="admin-add-product-btn">
+                                <i class="fa-solid fa-plus"></i> Add New Product
+                            </button>
+                        </div>
+                        
+                        <div class="admin-products-table-container">
+                            <table class="admin-products-table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Rx Req.</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-products-list">
+                                    <!-- Injected via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="panel-footer-actions">
+                            <button class="btn btn-outline" id="admin-reset-catalog-btn" style="border-color: var(--status-danger); color: var(--status-danger); background: transparent;">
+                                <i class="fa-solid fa-trash-arrow-up"></i> Reset to Default Catalog
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ORDERS LOG PANEL -->
+                    <div class="admin-tab-panel" id="panel-orders" style="display: none;">
+                        <div class="panel-header-actions">
+                            <div class="search-wrapper admin-search-wrap">
+                                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                                <input type="text" id="admin-order-search" placeholder="Search orders by name or ID...">
+                            </div>
+                            <button type="button" class="btn btn-secondary" id="admin-simulate-order-btn">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Simulate Mock Order
+                            </button>
+                        </div>
+                        
+                        <div class="admin-products-table-container">
+                            <table class="admin-products-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Date & Type</th>
+                                        <th>Total (inc. Tax)</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-orders-list">
+                                    <!-- Injected via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="panel-footer-actions" style="margin-top: 15px;">
+                            <button type="button" class="btn btn-outline" id="admin-clear-orders-btn" style="border-color: var(--status-danger); color: var(--status-danger); background: transparent;">
+                                <i class="fa-solid fa-trash-can"></i> Clear Order History
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- PAYMENT & SECURITY CONFIGURATION PANEL -->
+                    <div class="admin-tab-panel" id="panel-settings" style="display: none;">
+                        <form id="admin-settings-form" class="prescription-form" style="max-height: 62vh; overflow-y: auto; padding-right: 8px;">
+                            <!-- SECTION 1: Store Contact & License Coordinates -->
+                            <h4 style="font-family: var(--font-heading); color: var(--accent); font-size: 1rem; margin-bottom: 12px; border-bottom: 1px dashed var(--border-color); padding-bottom: 6px;">
+                                <i class="fa-solid fa-id-card"></i> 1. Store Identity & License Details
+                            </h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cfg-proprietor">Proprietor Name <span class="required">*</span></label>
+                                    <input type="text" id="cfg-proprietor" placeholder="e.g. Ameen Ahamad" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cfg-pharmacist-name">Chief Pharmacist Name <span class="required">*</span></label>
+                                    <input type="text" id="cfg-pharmacist-name" placeholder="e.g. Ameen Ahamad" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cfg-reg-no">Pharmacist Registration No. (PCI) <span class="required">*</span></label>
+                                    <input type="text" id="cfg-reg-no" placeholder="e.g. 49301" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cfg-dl-no">Drug License Number <span class="required">*</span></label>
+                                    <input type="text" id="cfg-dl-no" placeholder="e.g. DL-29302/20B/21B" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cfg-store-phone">Store Phone Number <span class="required">*</span></label>
+                                    <input type="text" id="cfg-store-phone" placeholder="e.g. +91 98765 43210" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cfg-store-whatsapp">Store WhatsApp No (for Orders Routing) <span class="required">*</span></label>
+                                    <input type="text" id="cfg-store-whatsapp" placeholder="e.g. 919876543210" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cfg-store-email">Store Email Address <span class="required">*</span></label>
+                                    <input type="email" id="cfg-store-email" placeholder="e.g. contact@greencitypharmacy.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cfg-maps-link">Google Maps Location Link <span class="required">*</span></label>
+                                    <input type="url" id="cfg-maps-link" placeholder="e.g. https://maps.google.com..." required>
+                                </div>
+                            </div>
+
+                            <!-- SECTION 2: Store Operating Details & Taxes -->
+                            <h4 style="font-family: var(--font-heading); color: var(--accent); font-size: 1rem; margin-top: 24px; margin-bottom: 12px; border-bottom: 1px dashed var(--border-color); padding-bottom: 6px;">
+                                <i class="fa-solid fa-store"></i> 2. Operating Schedule & Taxes
+                            </h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cfg-hours">Operating Hours Text <span class="required">*</span></label>
+                                    <input type="text" id="cfg-hours" placeholder="e.g. Monday - Sunday: 08:00 AM - 10:00 PM (IST)" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cfg-gst-rate">GST Tax Rate (%) <span class="required">*</span></label>
+                                    <input type="number" id="cfg-gst-rate" min="0" max="100" step="1" placeholder="e.g. 12" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cfg-short-address">Short Address (e.g. for header) <span class="required">*</span></label>
+                                    <input type="text" id="cfg-short-address" placeholder="e.g. Near Central Plaza, Green City, India" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cfg-long-address">Complete Store Address <span class="required">*</span></label>
+                                    <input type="text" id="cfg-long-address" placeholder="e.g. Shop No. 12, Ground Floor, Central Plaza Mall..." required>
+                                </div>
+                            </div>
+
+                            <!-- SECTION 3: Store Payment Details -->
+                            <h4 style="font-family: var(--font-heading); color: var(--accent); font-size: 1rem; margin-top: 24px; margin-bottom: 12px; border-bottom: 1px dashed var(--border-color); padding-bottom: 6px;">
+                                <i class="fa-solid fa-building-columns"></i> 3. Store Payment Coordinates
+                            </h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cfg-upi-id">UPI ID <span class="required">*</span></label>
+                                    <input type="text" id="cfg-upi-id" placeholder="e.g. name@upi" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cfg-beneficiary">Beneficiary/Payee Name <span class="required">*</span></label>
+                                    <input type="text" id="cfg-beneficiary" placeholder="e.g. Ameen Ahamad" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cfg-bank-name">Bank Name <span class="required">*</span></label>
+                                    <input type="text" id="cfg-bank-name" placeholder="e.g. State Bank of India" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cfg-acc-number">Account Number <span class="required">*</span></label>
+                                    <input type="text" id="cfg-acc-number" placeholder="e.g. 1234567890" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cfg-ifsc">IFSC Code <span class="required">*</span></label>
+                                <input type="text" id="cfg-ifsc" placeholder="e.g. SBIN0001234" required>
+                            </div>
+
+                            <!-- SECTION 4: Portal Security -->
+                            <h4 style="font-family: var(--font-heading); color: var(--accent); font-size: 1rem; margin-top: 24px; margin-bottom: 12px; border-bottom: 1px dashed var(--border-color); padding-bottom: 6px;">
+                                <i class="fa-solid fa-key"></i> 4. Portal Authentication Password
+                            </h4>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px;">Leave fields blank if you do not wish to modify your password.</p>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cfg-password-old">Current Password</label>
+                                    <input type="password" id="cfg-password-old" placeholder="Verify old password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cfg-password-new">New Password</label>
+                                    <input type="password" id="cfg-password-new" placeholder="Min. 4 characters">
+                                </div>
+                            </div>
+
+                            <!-- SECTION 5: Search Query Analytics -->
+                            <h4 style="font-family: var(--font-heading); color: var(--accent); font-size: 1rem; margin-top: 24px; margin-bottom: 12px; border-bottom: 1px dashed var(--border-color); padding-bottom: 6px;">
+                                <i class="fa-solid fa-chart-line"></i> 5. Customer Search Analytics & Trends
+                            </h4>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px;">See what medicines and products your customers search for most frequently.</p>
+                            <div class="search-trends-container" style="background: var(--primary-light); padding: 15px; border-radius: var(--border-radius-sm); border: 1px solid var(--border-color-glow); margin-bottom: 15px;">
+                                <table class="admin-products-table" style="background: transparent;">
+                                    <thead>
+                                        <tr>
+                                            <th>Search Query</th>
+                                            <th style="text-align: right;">Search Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="analytics-search-list">
+                                        <!-- Injected via JS -->
+                                    </tbody>
+                                </table>
+                                <button type="button" class="btn btn-outline" id="admin-clear-search-analytics-btn" style="margin-top: 10px; font-size: 0.75rem; padding: 6px 12px; border-color: var(--status-danger); color: var(--status-danger); background: transparent;">
+                                    <i class="fa-solid fa-trash-can"></i> Clear Search Trends
+                                </button>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="margin-top: 15px; width: 100%;">
+                                <i class="fa-solid fa-floppy-disk"></i> Save Configurations
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT UPLOAD/EDIT FORM MODAL OVERLAY -->
+    <div class="modal-overlay" id="product-form-modal" style="display: none; z-index: 1100;">
+        <div class="product-form-card">
+            <div class="admin-modal-header" style="padding: 20px 0;">
+                <h3 id="product-form-title">Add New Product</h3>
+                <button class="modal-close-btn" id="close-product-form" aria-label="Close Editor">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form id="admin-product-details-form" class="prescription-form" style="max-height: 70vh; overflow-y: auto; padding-right: 8px;">
+                <input type="hidden" id="edit-product-id" value="">
+                <div class="form-group">
+                    <label for="prod-name">Product Name <span class="required">*</span></label>
+                    <input type="text" id="prod-name" placeholder="e.g. Paracetamol 500mg" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="prod-category">Category <span class="required">*</span></label>
+                        <select id="prod-category" required style="padding: 14px 18px; border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); font-size: 0.95rem; background-color: var(--bg-white); color: var(--text-main);">
+                            <option value="otc">OTC Medicine</option>
+                            <option value="vitamins">Vitamins & Supplements</option>
+                            <option value="essentials">Health Essentials</option>
+                            <option value="personal">Personal Care</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="prod-price">Price (₹) <span class="required">*</span></label>
+                        <input type="number" id="prod-price" step="0.01" min="0" placeholder="e.g. 50.00" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="prod-size">Pack Size / Net Volume <span class="required">*</span></label>
+                        <input type="text" id="prod-size" placeholder="e.g. Strip of 10 Tablets" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prod-icon">FontAwesome Icon Class <span class="required">*</span></label>
+                        <select id="prod-icon" required style="padding: 14px 18px; border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); font-size: 0.95rem; background-color: var(--bg-white); color: var(--text-main);">
+                            <option value="fa-tablets">Tablets (fa-tablets)</option>
+                            <option value="fa-pills">Pills (fa-pills)</option>
+                            <option value="fa-capsules">Capsules (fa-capsules)</option>
+                            <option value="fa-prescription-bottle-medical">Bottle Medical (fa-prescription-bottle-medical)</option>
+                            <option value="fa-prescription-bottle">Bottle Standard (fa-prescription-bottle)</option>
+                            <option value="fa-droplet">Oil/Liquid Drop (fa-droplet)</option>
+                            <option value="fa-thermometer">Thermometer (fa-thermometer)</option>
+                            <option value="fa-mask-face">Mask (fa-mask-face)</option>
+                            <option value="fa-pump-medical">Pump Liquid/Gel (fa-pump-medical)</option>
+                            <option value="fa-leaf">Herb/Natural (fa-leaf)</option>
+                            <option value="fa-soap">Soap/Wash (fa-soap)</option>
+                            <option value="fa-spa">Cream/Spa (fa-spa)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="prod-desc">Brief Description <span class="required">*</span></label>
+                    <textarea id="prod-desc" rows="2" placeholder="Brief summary for catalog view..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="prod-ingredients">Active Ingredients <span class="required">*</span></label>
+                    <input type="text" id="prod-ingredients" placeholder="e.g. Paracetamol IP 500mg" required>
+                </div>
+                <div class="form-group">
+                    <label for="prod-benefits">Key Benefits (Comma separated) <span class="required">*</span></label>
+                    <input type="text" id="prod-benefits" placeholder="e.g. Reduces fever, Relieves mild headache, Joint care" required>
+                </div>
+                <div class="form-group">
+                    <label for="prod-directions">Directions for Use <span class="required">*</span></label>
+                    <textarea id="prod-directions" rows="2" placeholder="e.g. Take 1 tablet after meals..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="prod-sideeffects">Side Effects <span class="required">*</span></label>
+                    <input type="text" id="prod-sideeffects" placeholder="e.g. Drowsiness, mild dry mouth..." required>
+                </div>
+                <div class="form-group" style="flex-direction: row; align-items: center; gap: 10px; margin-top: 10px;">
+                    <input type="checkbox" id="prod-rx" style="width: 20px; height: 20px; cursor: pointer;">
+                    <label for="prod-rx" style="cursor: pointer; font-weight: 600; font-size: 0.95rem; color: var(--accent);">Doctor's Prescription Required (Rx)</label>
+                </div>
+                <div class="form-row" style="margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary" id="btn-save-product">Save Product</button>
+                    <button type="button" class="btn btn-outline" id="btn-cancel-product-form">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- INVOICE/BILL PRINTING MODAL -->
+    <div class="modal-overlay" id="invoice-modal-overlay" style="display: none; z-index: 1200;">
+        <div class="invoice-modal-container">
+            <div class="invoice-print-actions">
+                <button type="button" class="btn btn-primary" id="invoice-print-btn"><i class="fa-solid fa-print"></i> Print Receipt</button>
+                <button type="button" class="btn btn-outline" id="close-invoice-btn"><i class="fa-solid fa-xmark"></i> Close</button>
+            </div>
+            
+            <div class="invoice-paper" id="invoice-paper-content">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FLOATING LIVE CHAT WIDGET -->
+    <div class="chat-widget-wrapper" id="chat-widget-root">
+        <!-- Chat Bubble Button -->
+        <button class="chat-bubble-btn" id="chat-bubble-trigger" aria-label="Open Live Chat">
+            <span class="chat-pulse-badge" id="chat-notification-dot"></span>
+            <i class="fa-solid fa-comments"></i>
+        </button>
+        
+        <!-- Chat Window -->
+        <div class="chat-window" id="chat-window-panel" style="display: none;">
+            <div class="chat-window-header">
+                <div class="chat-pharmacist-avatar">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <span class="chat-online-dot"></span>
+                </div>
+                <div class="chat-header-info">
+                    <h4>Pharmacist Ameen</h4>
+                    <p>Registered Pharmacist • Online</p>
+                </div>
+                <button class="chat-close-btn" id="chat-panel-close-btn" aria-label="Close Chat">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <!-- Chat Message Area -->
+            <div class="chat-messages-body" id="chat-messages-list">
+                <div class="chat-msg system-msg">
+                    <p>👋 Hello! I am Registered Pharmacist Ameen Ahamad. How can I help you today? You can search for products, ask about store hours, or request custom delivery information.</p>
+                    <span class="chat-msg-time">Just now</span>
+                </div>
+            </div>
+            
+            <!-- Chat Typing Indicator -->
+            <div class="chat-typing-indicator" id="chat-typing-bubble" style="display: none;">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <!-- Quick Options -->
+            <div class="chat-quick-replies" id="chat-replies-grid">
+                <button type="button" class="quick-reply-btn" data-reply="Do you have Paracetamol in stock?">Check Paracetamol</button>
+                <button type="button" class="quick-reply-btn" data-reply="How long does home delivery take?">Delivery Time</button>
+                <button type="button" class="quick-reply-btn" data-reply="What are your store hours?">Store Hours</button>
+                <button type="button" class="quick-reply-btn" data-reply="Can I pay using UPI?">UPI Payment</button>
+            </div>
+            
+            <!-- Input Area -->
+            <form class="chat-input-area" id="chat-input-form">
+                <input type="text" id="chat-message-input" placeholder="Type your health query..." required autocomplete="off">
+                <button type="submit" class="chat-send-btn" id="chat-submit-message" aria-label="Send Message">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+            
+            <div class="chat-footer-action">
+                <button type="button" class="btn btn-secondary btn-block" id="chat-whatsapp-redirect-btn" style="padding: 8px 12px; font-size: 0.75rem; border-radius: var(--border-radius-sm); width: 100%;">
+                    <i class="fa-brands fa-whatsapp"></i> Direct WhatsApp Chat
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATIONS CONTAINER -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+</body>
+</html>

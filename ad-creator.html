@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green City Pharmacy | Virtual Product Ad Creator Studio</title>
+    <meta name="description" content="Design and create professional advertisements for Green City Pharmacy by placing virtual allopathic medicine products on shelves and overlaying premium branding.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="ad-creator.css">
+</head>
+<body class="studio-body">
+
+    <!-- 1. STUDIO HEADER -->
+    <header class="studio-header">
+        <div class="studio-logo">
+            <div class="studio-logo-icon"><i class="fa-solid fa-film"></i></div>
+            <div class="studio-logo-text">
+                <h1>GREEN CITY</h1>
+                <span>AD STUDIO</span>
+            </div>
+        </div>
+        
+        <div class="studio-header-actions">
+            <a href="index.html" class="studio-btn studio-btn-secondary">
+                <i class="fa-solid fa-arrow-left"></i> Exit to Store
+            </a>
+            <button id="btn-upload-new" class="studio-btn studio-btn-secondary" onclick="document.getElementById('video-uploader').click()">
+                <i class="fa-solid fa-upload"></i> Upload Video
+            </button>
+            <button id="btn-load-demo" class="studio-btn studio-btn-secondary">
+                <i class="fa-solid fa-circle-play"></i> Load Demo Video
+            </button>
+            <button id="btn-export-ad" class="studio-btn studio-btn-primary" disabled>
+                <i class="fa-solid fa-cloud-arrow-down"></i> Generate Ad Video
+            </button>
+        </div>
+    </header>
+
+    <!-- 2. STUDIO MAIN CONTAINER -->
+    <main class="studio-main-container">
+
+        <!-- A. LEFT SIDEBAR: MEDICINE LIBRARY -->
+        <aside class="studio-sidebar">
+            <div class="studio-sidebar-header">
+                <h2><i class="fa-solid fa-capsules"></i> Allopathic Catalog</h2>
+            </div>
+            <div class="studio-sidebar-content">
+                <div class="library-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="lib-search" class="library-search-input" placeholder="Search medicines...">
+                </div>
+                
+                <p class="hint-text"><i class="fa-solid fa-circle-info"></i> Click or drag a medicine card to place it as a virtual shelf object in the workspace.</p>
+                
+                <div class="library-grid" id="catalog-library-grid">
+                    <!-- Dynamic insertion of allopathic drugs -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- B. CENTRAL WORKSPACE: VIEWPORT & TIMELINE -->
+        <section class="studio-workspace">
+            <div class="viewport-container">
+                <!-- Dropzone overlay when no video is loaded -->
+                <div class="viewport-upload-overlay" id="upload-overlay">
+                    <div class="viewport-upload-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                    <h3>Upload Pharmacy Shelf Video</h3>
+                    <p>Drag and drop your empty pharmacy MP4/WebM video here, or click to browse local files.</p>
+                    <input type="file" id="video-uploader" accept="video/mp4, video/webm" style="display: none;">
+                    <button class="studio-btn studio-btn-primary" onclick="document.getElementById('video-uploader').click()">
+                        <i class="fa-solid fa-file-video"></i> Select Video File
+                    </button>
+                    
+                    <div class="demo-suggestion-box">
+                        <p style="font-size: 0.8rem; margin-bottom: 10px;">Don't have a video? Test with our animated demo pharmacy background!</p>
+                        <button id="btn-load-demo-overlay" class="studio-btn studio-btn-outline">
+                            Use Demo Store Layout
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Aspect Ratio Video Frame Box -->
+                <div class="video-frame-wrapper" id="video-frame" style="display: none;">
+                    <!-- Source Video (hidden) -->
+                    <video id="editor-video" preload="auto" loop crossorigin="anonymous"></video>
+                    <!-- Rendering canvas -->
+                    <canvas id="editor-canvas"></canvas>
+                </div>
+            </div>
+
+            <!-- Timeline controls -->
+            <div class="timeline-container">
+                <div class="timeline-controls-row">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <button id="btn-play-pause" class="timeline-playback-btn" disabled>
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                        <span class="timeline-time-display" id="time-display">00:00 / 00:00</span>
+                    </div>
+                    
+                    <div style="display: flex; gap: 8px;">
+                        <button id="btn-add-keyframe" class="studio-btn studio-btn-secondary" style="padding: 6px 12px; font-size: 0.75rem;" disabled>
+                            <i class="fa-solid fa-key"></i> Add Keyframe
+                        </button>
+                        <button id="btn-clear-keyframes" class="studio-btn studio-btn-secondary" style="padding: 6px 12px; font-size: 0.75rem;" disabled>
+                            <i class="fa-solid fa-trash-can"></i> Clear Path
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="timeline-scrubber-row">
+                    <input type="range" id="scrubber" class="timeline-scrubber" min="0" max="100" value="0" step="0.1" disabled>
+                    <div class="timeline-keyframe-markers" id="keyframe-markers-container"></div>
+                </div>
+                
+                <p class="hint-text" style="margin: 0; text-align: center;">
+                    <i class="fa-solid fa-arrows-left-right"></i> Drag scrubber to scrub. Placed shelves are tracked by keyframes. Adjust shelf placement at multiple times to match camera pans.
+                </p>
+            </div>
+        </section>
+
+        <!-- C. RIGHT SIDEBAR: AD BRANDING CUSTOMIZER -->
+        <aside class="studio-sidebar studio-sidebar-right">
+            <div class="studio-sidebar-header">
+                <h2><i class="fa-solid fa-sliders"></i> Ad Customizer</h2>
+            </div>
+            
+            <div class="studio-sidebar-content">
+                <!-- Section 1: Shelving Overlay Options -->
+                <div class="customizer-section">
+                    <h3 class="customizer-section-title"><i class="fa-solid fa-layer-group"></i> Active Shelf Controls</h3>
+                    <div id="shelf-editor-controls" style="display: none;">
+                        <div class="form-group-studio">
+                            <label for="shelf-multiplier">Duplicate / Count on Shelf</label>
+                            <input type="range" id="shelf-multiplier" min="1" max="15" value="5" class="timeline-scrubber">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--studio-text-muted);">
+                                <span>1 Box</span>
+                                <span id="shelf-multiplier-val">5 Boxes</span>
+                                <span>15 Boxes</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group-studio" style="margin-top: 10px;">
+                            <label for="shelf-spacing">Box Spacing</label>
+                            <input type="range" id="shelf-spacing" min="0" max="50" value="10" class="timeline-scrubber">
+                        </div>
+
+                        <div class="form-group-studio" style="margin-top: 10px;">
+                            <label for="shelf-skew-y">Perspective Tilt (Y-Skew)</label>
+                            <input type="range" id="shelf-skew-y" min="-45" max="45" value="0" class="timeline-scrubber">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--studio-text-muted);">
+                                <span>Tilt Down</span>
+                                <span id="shelf-skew-val">0°</span>
+                                <span>Tilt Up</span>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 8px; margin-top: 10px;">
+                            <button id="btn-duplicate-shelf" class="studio-btn studio-btn-secondary" style="flex: 1; padding: 6px 0;">
+                                <i class="fa-solid fa-clone"></i> Duplicate Shelf
+                            </button>
+                            <button id="btn-delete-shelf" class="studio-btn studio-btn-secondary" style="flex: 1; padding: 6px 0; color: var(--studio-danger); border-color: var(--studio-danger);">
+                                <i class="fa-solid fa-trash"></i> Delete Shelf
+                            </button>
+                        </div>
+                    </div>
+                    <div id="shelf-no-selection" style="color: var(--studio-text-muted); font-size: 0.8rem; text-align: center; padding: 10px 0;">
+                        No virtual shelf selected. Click a medicine group on the canvas to configure it.
+                    </div>
+                </div>
+
+                <!-- Section 2: Branding Overlay -->
+                <div class="customizer-section">
+                    <h3 class="customizer-section-title"><i class="fa-solid fa-certificate"></i> Pharmacy Branding</h3>
+                    
+                    <div class="form-group-studio">
+                        <label class="checkbox-studio">
+                            <input type="checkbox" id="chk-show-logo" checked>
+                            Show Green City Watermark Logo
+                        </label>
+                    </div>
+
+                    <div class="form-group-studio">
+                        <label for="branding-slogan">Slogan Text Banner</label>
+                        <input type="text" id="branding-slogan" class="studio-input" value="Your Trusted Partner for Healthy Living">
+                    </div>
+
+                    <div class="form-group-studio">
+                        <label for="branding-phone">WhatsApp Contact Number</label>
+                        <input type="text" id="branding-phone" class="studio-input" value="Order via WhatsApp: +91 98765 43210">
+                    </div>
+                </div>
+
+                <!-- Section 3: Lower Thirds Overlay -->
+                <div class="customizer-section">
+                    <h3 class="customizer-section-title"><i class="fa-solid fa-rectangle-list"></i> Lower Third Banners</h3>
+                    
+                    <div class="form-group-studio">
+                        <label class="checkbox-studio">
+                            <input type="checkbox" id="chk-show-lowerthird" checked>
+                            Show Pharmacist Lower-Third
+                        </label>
+                    </div>
+
+                    <div class="form-group-studio">
+                        <label for="lower-pharmacist-name">Pharmacist Name</label>
+                        <input type="text" id="lower-pharmacist-name" class="studio-input" value="Ameen Ahamad (Registered Pharmacist)">
+                    </div>
+
+                    <div class="form-group-studio">
+                        <label for="lower-pharmacist-lic">License Info</label>
+                        <input type="text" id="lower-pharmacist-lic" class="studio-input" value="PCI Registration No: 49301 | DL-29302/20B/21B">
+                    </div>
+                </div>
+
+                <!-- Section 4: Promotion Graphics -->
+                <div class="customizer-section">
+                    <h3 class="customizer-section-title"><i class="fa-solid fa-wand-magic-sparkles"></i> Cinematic Overlays</h3>
+                    
+                    <div class="form-group-studio">
+                        <label for="clinical-filter">Clinical Tint Effect</label>
+                        <select id="clinical-filter" class="studio-select">
+                            <option value="none">None (Original Colors)</option>
+                            <option value="clinical-fresh">Clinical Fresh (Vibrant Green & Warmth)</option>
+                            <option value="emerald-glow">Emerald Studio (Deep Rich Emeralds)</option>
+                            <option value="pharmacy-clean">Bright Pharmacy (High Contrast Clean)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group-studio">
+                        <label class="checkbox-studio">
+                            <input type="checkbox" id="chk-show-cross" checked>
+                            Glow Green Cross Indicator
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Section 5: Audio Overlay -->
+                <div class="customizer-section">
+                    <h3 class="customizer-section-title"><i class="fa-solid fa-music"></i> Background Audio</h3>
+                    
+                    <div class="form-group-studio">
+                        <label for="bg-audio-select">Select Music Track</label>
+                        <select id="bg-audio-select" class="studio-select">
+                            <option value="none">Mute / No Music</option>
+                            <option value="clinical-corporate">Cinematic Health (Modern Uplifting Beat)</option>
+                            <option value="calm-ambient">Calm Healing (Soft Acoustic Guitar)</option>
+                            <option value="tech-clean">Digital Biotech (Clean Electronic Ambient)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+    </main>
+
+    <!-- 3. EXPORT PROGRESS MODAL OVERLAY -->
+    <div class="export-loader-modal" id="export-modal">
+        <div class="export-spinner"></div>
+        <h2 id="export-title" style="margin: 0 0 6px 0;">Compiling Video Advertisement...</h2>
+        <p id="export-desc" style="color: var(--studio-text-muted); margin: 0; font-size: 0.9rem;">Synthesizing virtual shelves, branding text overlays, and audio track.</p>
+        <div class="export-progress-bar">
+            <div class="export-progress-fill" id="export-progress"></div>
+        </div>
+        <p style="font-size: 0.8rem; font-weight: 600; color: var(--studio-accent);" id="export-percent">0% Completed</p>
+        <p style="font-size: 0.75rem; color: var(--studio-text-muted); max-width: 300px; margin-top: 15px;">Please keep your browser active. This may take 5 to 10 seconds depending on video length.</p>
+    </div>
+
+    <!-- Background Music Audio Elements -->
+    <audio id="audio-clinical-corporate" loop src="https://assets.mixkit.co/music/preview/mixkit-health-and-care-583.mp3" preload="none"></audio>
+    <audio id="audio-calm-ambient" loop src="https://assets.mixkit.co/music/preview/mixkit-healing-acoustics-184.mp3" preload="none"></audio>
+    <audio id="audio-tech-clean" loop src="https://assets.mixkit.co/music/preview/mixkit-technology-corporate-903.mp3" preload="none"></audio>
+
+    <!-- JS script -->
+    <script src="ad-creator.js"></script>
+</body>
+</html>
